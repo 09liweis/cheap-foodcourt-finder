@@ -1,0 +1,29 @@
+{
+  "common": {
+    "back": "返回",
+    "signIn": "登录",
+    "signOut": "退出",
+    "cancel": "取消",
+    "rating": "评分",
+    "restaurants": "餐厅",
+    "address": "地址",
+    "menu": "菜单",
+    "reviews": "评论"
+  },
+  "home": {
+    "title": "热门美食广场",
+    "restaurantCount": "{count} 家餐厅"
+  },
+  "foodCourt": {
+    "backToList": "← 返回美食广场列表"
+  },
+  "restaurant": {
+    "backToFoodCourt": "← 返回美食广场",
+    "photos": "照片",
+    "price": "¥{price}"
+  },
+  "auth": {
+    "signInWithGoogle": "使用谷歌账号登录",
+    "continueWithGoogle": "继续使用谷歌账号"
+  }
+}

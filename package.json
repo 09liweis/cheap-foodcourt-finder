@@ -1,0 +1,21 @@
+{
+  "name": "food-court-finder",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "HOST=0.0.0.0 nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.6",
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "@pinia/nuxt": "^0.7.0",
+    "@vueuse/motion": "^2.1.0",
+    "nuxt": "^3.13.0",
+    "pinia": "^2.2.7",
+    "vue3-google-map": "^0.21.0"
+  }
+}

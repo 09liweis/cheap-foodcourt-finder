@@ -1,0 +1,29 @@
+{
+  "common": {
+    "back": "Back",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "cancel": "Cancel",
+    "rating": "Rating",
+    "restaurants": "Restaurants",
+    "address": "Address",
+    "menu": "Menu",
+    "reviews": "Reviews"
+  },
+  "home": {
+    "title": "Popular Food Courts",
+    "restaurantCount": "{count} Restaurants"
+  },
+  "foodCourt": {
+    "backToList": "← Back to Food Courts"
+  },
+  "restaurant": {
+    "backToFoodCourt": "← Back to Food Court",
+    "photos": "Photos",
+    "price": "${price}"
+  },
+  "auth": {
+    "signInWithGoogle": "Sign in with Google",
+    "continueWithGoogle": "Continue with Google"
+  }
+}
