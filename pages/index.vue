@@ -44,6 +44,7 @@
 </template>
 
 <script setup>
+import ViewSwitcher from '../components/common/ViewSwitcher';
 const currentView = ref('list')
 const foodCourtsStore = useFoodCourtsStore()
 const foodCourts = computed(() => foodCourtsStore.foodCourts)
