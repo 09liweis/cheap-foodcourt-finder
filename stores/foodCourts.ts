@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-
-"https://images.unsplash.com/photo-1615719413546-198b25453f85?w=800"
+import {sendRequest} from '../utils/http';
 
 export const useFoodCourtsStore = defineStore('foodCourts', {
   state: () => ({
-    foodCourts: []
+    foodCourts: [],
+    curFoodCourt:{}
   }),
   
   getters: {
@@ -15,9 +15,13 @@ export const useFoodCourtsStore = defineStore('foodCourts', {
   
   actions: {
     async fetchFoodCourts() {
-      const response = await fetch('https://samliweisen.onrender.com/api/foodcourts');
-      const data = await response.json();
+      const data = await sendRequest({url:'foodcourts'})
       this.foodCourts = data.foodcourts;
+    },
+
+    async fetchFoodCourtDetail(foodcourtUrl:string) {
+      const data = await sendRequest({url:`foodcourts/${foodcourtUrl}`});
+      this.curFoodCourt = data.foodcourt;
     },
 
     addFoodCourt() {

@@ -5,7 +5,7 @@
     :enter="{ opacity: 1, y: 0 }"
     class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
   >
-    <NuxtLink :to="`/food-court/${foodCourt.place_id}`">
+    <NuxtLink :to="`/food-court/${foodCourt.url}`">
       <img :src="foodCourt.image || 'https://images.unsplash.com/photo-1615719413546-198b25453f85?w=800'" :alt="foodCourt.name" class="w-full h-48 object-cover" />
       <div class="p-4">
         <h2 class="text-xl font-semibold text-gray-900">{{ foodCourt.name }}</h2>

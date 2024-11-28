@@ -19,7 +19,7 @@
     <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-6">Restaurants</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <RestaurantCard
-        v-for="restaurant in restaurants"
+        v-for="restaurant in foodCourt.restaurants"
         :key="restaurant.id"
         :restaurant="restaurant"
       />
@@ -29,11 +29,11 @@
 
 <script setup>
 const route = useRoute()
-const foodCourtId = parseInt(route.params.id)
+const foodCourtId = route.params.id
 
 const foodCourtsStore = useFoodCourtsStore()
 const restaurantsStore = useRestaurantsStore()
 
-const foodCourt = computed(() => foodCourtsStore.getFoodCourtById(foodCourtId))
-const restaurants = computed(() => restaurantsStore.getRestaurantsByFoodCourtId(foodCourtId))
+foodCourtsStore.fetchFoodCourtDetail(foodCourtId)
+const foodCourt = computed(() => foodCourtsStore.curFoodCourt)
 </script>
