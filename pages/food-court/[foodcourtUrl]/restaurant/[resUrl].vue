@@ -2,7 +2,7 @@
   <div v-if="restaurant">
     <div class="mb-8">
       <NuxtLink :to="`/food-court/${restaurant.foodcourt?.url}`" class="text-blue-600 hover:text-blue-800">
-        ← Back to Food Court
+        ← Back to {{restaurant.foodcourt?.name}}
       </NuxtLink>
     </div>
     
