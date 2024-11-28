@@ -1,7 +1,7 @@
 <template>
   <div v-if="restaurant">
     <div class="mb-8">
-      <NuxtLink :to="`/food-court/${restaurant.foodCourtId}`" class="text-blue-600 hover:text-blue-800">
+      <NuxtLink :to="`/food-court/${restaurant.foodcourt?.url}`" class="text-blue-600 hover:text-blue-800">
         ← Back to Food Court
       </NuxtLink>
     </div>
@@ -81,7 +81,8 @@
 
 <script setup>
 const route = useRoute()
-const restaurantId = parseInt(route.params.id)
+const {foodcourtUrl, resUrl} = route.params
 const restaurantsStore = useRestaurantsStore()
-const restaurant = computed(() => restaurantsStore.getRestaurantById(restaurantId))
+restaurantsStore.fetchRestaurantDetail(resUrl, foodcourtUrl)
+const restaurant = computed(() => restaurantsStore.curRestaurant)
 </script>
