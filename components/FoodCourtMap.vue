@@ -42,6 +42,6 @@ const mapCenter = ref({ lat: 43.7833328, lng: -79.4496867 })
 const router = useRouter()
 
 const handleMarkerClick = (foodCourt) => {
-  router.push(`/food-court/${foodCourt.place_id}`)
+  router.push(`/food-court/${foodCourt.url}`)
 }
 </script>
