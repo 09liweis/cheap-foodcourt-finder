@@ -5,7 +5,7 @@
     :enter="{ opacity: 1, y: 0 }"
     class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
   >
-    <NuxtLink :to="`/food-court/${foodCourt.id}`">
+    <NuxtLink :to="`/food-court/${foodCourt.place_id}`">
       <img :src="foodCourt.image" :alt="foodCourt.name" class="w-full h-48 object-cover" />
       <div class="p-4">
         <h2 class="text-xl font-semibold text-gray-900">{{ foodCourt.name }}</h2>

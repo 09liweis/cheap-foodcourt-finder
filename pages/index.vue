@@ -34,7 +34,7 @@
         <div v-if="currentView === 'list'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <FoodCourtCard
             v-for="foodCourt in foodCourts"
-            :key="foodCourt.id"
+            :key="foodCourt._id"
             :food-court="foodCourt"
           />
         </div>
@@ -47,5 +47,6 @@
 import ViewSwitcher from '../components/common/ViewSwitcher';
 const currentView = ref('list')
 const foodCourtsStore = useFoodCourtsStore()
+foodCourtsStore.fetchFoodCourts();
 const foodCourts = computed(() => foodCourtsStore.foodCourts)
 </script>

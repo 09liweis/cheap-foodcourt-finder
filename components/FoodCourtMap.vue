@@ -13,9 +13,9 @@
     >
       <Marker
         v-for="foodCourt in foodCourts"
-        :key="foodCourt.id"
+        :key="foodCourt._id"
         :options="{
-          position: foodCourt.position,
+          position: foodCourt.loc,
           title: foodCourt.name
         }"
         @click="handleMarkerClick(foodCourt)"
@@ -37,11 +37,11 @@ const props = defineProps({
 })
 
 // Default center (can be calculated based on food courts)
-const mapCenter = ref({ lat: 1.3521, lng: 103.8198 }) // Singapore coordinates
+const mapCenter = ref({ lat: 43.7833328, lng: -79.4496867 })
 
 const router = useRouter()
 
 const handleMarkerClick = (foodCourt) => {
-  router.push(`/food-court/${foodCourt.id}`)
+  router.push(`/food-court/${foodCourt.place_id}`)
 }
 </script>
