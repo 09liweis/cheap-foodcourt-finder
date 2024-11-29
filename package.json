@@ -18,5 +18,8 @@
     "nuxt": "^3.13.0",
     "pinia": "^2.2.7",
     "vue3-google-map": "^0.21.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/color-mode": "^3.5.2"
   }
 }

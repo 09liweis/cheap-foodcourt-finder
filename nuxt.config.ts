@@ -1,5 +1,16 @@
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', '@vueuse/motion/nuxt', '@pinia/nuxt'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@vueuse/motion/nuxt',
+    '@pinia/nuxt',
+    '@nuxtjs/color-mode'
+  ],
+
+  colorMode: {
+    classSuffix: '',
+    preference: 'system',
+    fallback: 'light'
+  },
 
   app: {
     head: {
