@@ -24,7 +24,9 @@ export const useFoodCourtsStore = defineStore('foodCourts', {
       this.curFoodCourt = data.foodcourt;
     },
 
-    addFoodCourt() {
+    async addFoodCourt(placeId:string) {
+      const data = await sendRequest({url:'foodcourts',method:'POST',body:{place_id:placeId}})
+      this.fetchFoodCourts();
     },
     
     updateFoodCourt() {

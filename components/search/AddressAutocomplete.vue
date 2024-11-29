@@ -31,6 +31,7 @@
 <script setup>
 import { Loader } from '@googlemaps/js-api-loader';
 import { ref, onMounted } from 'vue';
+const foodCourtStore = useFoodCourtStore();
 
 const searchInput = ref(null);
 const selectedPlace = ref(null);
@@ -54,6 +55,7 @@ onMounted(async () => {
 
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
+      foodCourtStore.addFoodCourt(place.place_id);
       if (place.geometry) {
         selectedPlace.value = place;
         emit('place-selected', place);
