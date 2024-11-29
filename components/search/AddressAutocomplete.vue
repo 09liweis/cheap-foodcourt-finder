@@ -31,7 +31,8 @@
 <script setup>
 import { Loader } from '@googlemaps/js-api-loader';
 import { ref, onMounted } from 'vue';
-const foodCourtStore = useFoodCourtStore();
+import { useFoodCourtsStore } from '~/stores/foodCourts';
+const foodCourtStore = useFoodCourtsStore();
 
 const searchInput = ref(null);
 const selectedPlace = ref(null);

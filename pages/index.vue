@@ -2,7 +2,16 @@
   <div>
     <div class="flex justify-between items-center mb-8">
       <h1 class="text-3xl font-bold text-gray-900">Popular Food Courts</h1>
-      <ViewSwitcher v-model="currentView" />
+      <div class="flex items-center gap-4">
+        <button
+          v-if="curUser?.isAdmin"
+          @click="showAddFoodCourt = true"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+        >
+          Add New Food Court
+        </button>
+        <ViewSwitcher v-model="currentView" />
+      </div>
     </div>
 
     <div
@@ -40,13 +49,49 @@
         </div>
       </Transition>
     </div>
+
+    <!-- Add Food Court Modal -->
+    <div
+      v-if="showAddFoodCourt"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      @click="showAddFoodCourt = false"
+    >
+      <div
+        v-motion
+        :initial="{ scale: 0.9, opacity: 0 }"
+        :enter="{ scale: 1, opacity: 1 }"
+        class="bg-white rounded-lg p-8 max-w-md w-full mx-4"
+        @click.stop
+      >
+        <div class="mb-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Add New Food Court</h2>
+          <AddressAutocomplete />
+        </div>
+        <div class="flex justify-end">
+          <button
+            @click="showAddFoodCourt = false"
+            class="text-sm text-gray-600 hover:text-gray-800"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import ViewSwitcher from '../components/common/ViewSwitcher';
+import AddressAutocomplete from '../components/search/AddressAutocomplete.vue';
+import { useUserStore } from '../stores/user';
+import { computed, ref } from 'vue';
+
 const currentView = ref('list')
+const showAddFoodCourt = ref(false)
 const foodCourtsStore = useFoodCourtsStore()
+const userStore = useUserStore()
+
 foodCourtsStore.fetchFoodCourts();
 const foodCourts = computed(() => foodCourtsStore.foodCourts)
+const curUser = computed(() => userStore.curUser)
 </script>

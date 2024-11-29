@@ -3,9 +3,9 @@ import { sendRequest } from '../utils/http';
 
 interface User {
   _id?: string;
-  email?: string;
-  name?: string;
-  [key: string]: any;
+  eml?: string;
+  nm?: string;
+  isAdmin?: boolean;
 }
 
 export const useUserStore = defineStore('user', {
@@ -50,7 +50,9 @@ export const useUserStore = defineStore('user', {
       try {
         const data = await sendRequest({url: 'user/detail', method: 'POST'});
         if (data.user) {
-          this.curUser = data.user;
+          const user = data.user;
+          user.isAdmin = user.roles.includes('admin');
+          this.curUser = user;
           this.isAuthenticated = true;
         } else {
           throw new Error('Failed to fetch user details');
