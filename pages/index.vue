@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-between items-center mb-8">
-      <h1 class="text-3xl font-bold text-gray-900">Popular Food Courts</h1>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Popular Food Courts</h1>
       <div class="flex items-center gap-4">
         <button
           v-if="curUser?.isAdmin"
