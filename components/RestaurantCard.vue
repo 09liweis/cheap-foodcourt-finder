@@ -6,7 +6,7 @@
     class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 dark:shadow-gray-900"
   >
     <NuxtLink :to="`/food-court/${foodcourtUrl}/restaurant/${restaurant.url}`">
-      <img :src="restaurant.image" :alt="restaurant.name" class="w-full h-48 object-cover" />
+      <img :src="restaurant.photos[0]" :alt="restaurant.name" class="w-full h-48 object-cover" />
       <div class="p-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ restaurant.name }}</h3>
         <p class="text-gray-600 dark:text-gray-400 mt-2">{{ restaurant.cuisine }}</p>
