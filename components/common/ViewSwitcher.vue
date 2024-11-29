@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center mb-6 bg-gray-100 rounded-lg p-1 w-fit">
+  <div class="flex items-center justify-center mb-6 bg-gray-100 dark:bg-gray-700 rounded-lg p-1 w-fit">
     <button
       v-for="view in views"
       :key="view.id"
@@ -7,12 +7,12 @@
       :class="[
         'px-4 py-2 text-sm font-medium rounded-md transition-colors',
         modelValue === view.id
-          ? 'bg-white text-gray-900 shadow-sm'
-          : 'text-gray-500 hover:text-gray-700'
+          ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm dark:shadow-gray-900'
+          : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
       ]"
     >
       <div class="flex items-center space-x-2">
-        <component :is="view.icon" />
+        <component :is="view.icon" class="w-5 h-5" />
         <span>{{ view.label }}</span>
       </div>
     </button>
