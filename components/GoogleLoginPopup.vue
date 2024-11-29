@@ -42,9 +42,16 @@
           
           <button
             type="submit"
-            class="w-full bg-indigo-600 text-white rounded-lg px-6 py-3 font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            :disabled="isLoading"
+            class="w-full bg-indigo-600 text-white rounded-lg px-6 py-3 font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed relative"
           >
-            Sign In
+            <span :class="{ 'opacity-0': isLoading }">Sign In</span>
+            <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center">
+              <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
           </button>
         </form>
         
@@ -78,10 +85,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useUserStore } from '../stores/user'
 
 const isOpen = ref(false)
 const email = ref('')
 const password = ref('')
+const isLoading = ref(false)
 const emit = defineEmits(['close', 'login'])
 
 const userStore = useUserStore()
@@ -94,18 +103,23 @@ const close = () => {
 }
 
 const handleEmailLogin = async () => {
+  if (isLoading.value) return
+  
+  isLoading.value = true
   try {
-    // Emit login event with credentials
     emit('login', {
       email: email.value,
       password: password.value
     })
-    userStore.login(email.value, password.value)
+    await userStore.login(email.value, password.value)
     // Clear form after successful login
     email.value = ''
     password.value = ''
+    close()
   } catch (error) {
     console.error('Login error:', error)
+  } finally {
+    isLoading.value = false
   }
 }
 
