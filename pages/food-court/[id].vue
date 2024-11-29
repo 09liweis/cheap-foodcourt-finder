@@ -16,25 +16,69 @@
       </div>
     </div>
 
-    <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-6">Restaurants</h2>
+    <div class="flex justify-between items-center mt-8 mb-6">
+      <h2 class="text-2xl font-semibold text-gray-900">Restaurants</h2>
+      <button
+        v-if="curUser?.isAdmin"
+        @click="showAddRestaurant = true"
+        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+      >
+        Add New Restaurant
+      </button>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <RestaurantCard
         v-for="restaurant in foodCourt.restaurants"
         :key="restaurant.url"
         :restaurant="restaurant"
-        :foodcourtUrl = "foodCourt.url"
+        :foodcourtUrl="foodCourt.url"
       />
+    </div>
+
+    <!-- Add Restaurant Modal -->
+    <div
+      v-if="showAddRestaurant"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      @click="showAddRestaurant = false"
+    >
+      <div
+        v-motion
+        :initial="{ scale: 0.9, opacity: 0 }"
+        :enter="{ scale: 1, opacity: 1 }"
+        class="bg-white rounded-lg p-8 max-w-md w-full mx-4"
+        @click.stop
+      >
+        <div class="mb-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Add New Restaurant</h2>
+          <AddressAutocomplete :foodCourtId="foodCourtId" />
+        </div>
+        <div class="flex justify-end">
+          <button
+            @click="showAddRestaurant = false"
+            class="text-sm text-gray-600 hover:text-gray-800"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
+import AddressAutocomplete from '~/components/search/AddressAutocomplete.vue'
+import { useUserStore } from '~/stores/user'
+
 const route = useRoute()
 const foodCourtId = route.params.id
+const showAddRestaurant = ref(false)
 
 const foodCourtsStore = useFoodCourtsStore()
-const restaurantsStore = useRestaurantsStore()
+const userStore = useUserStore()
 
 foodCourtsStore.fetchFoodCourtDetail(foodCourtId)
 const foodCourt = computed(() => foodCourtsStore.curFoodCourt)
+const curUser = computed(() => userStore.curUser)
 </script>

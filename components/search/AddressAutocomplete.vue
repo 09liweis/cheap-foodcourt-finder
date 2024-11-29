@@ -29,10 +29,15 @@
 </template>
 
 <script setup>
+const {foodCourtId} = defineProps(['foodCourtId']);
+
 import { Loader } from '@googlemaps/js-api-loader';
 import { ref, onMounted } from 'vue';
 import { useFoodCourtsStore } from '~/stores/foodCourts';
 const foodCourtStore = useFoodCourtsStore();
+
+import { useRestaurantsStore } from '~/stores/restaurants';
+const restaurantStore = useRestaurantsStore();
 
 const searchInput = ref(null);
 const selectedPlace = ref(null);
@@ -54,9 +59,15 @@ onMounted(async () => {
       fields: ['formatted_address', 'geometry', 'name', 'place_id']
     });
 
-    autocomplete.addListener('place_changed', () => {
+    autocomplete.addListener('place_changed', async () => {
       const place = autocomplete.getPlace();
-      foodCourtStore.addFoodCourt(place.place_id);
+      if (foodCourtId) {
+        await restaurantStore.addRestaurant(place.place_id, foodCourtId);
+        await foodCourtStore.fetchFoodCourtDetail(foodCourtId);
+      } else {
+        await foodCourtStore.addFoodCourt(place.place_id);
+      }
+
       if (place.geometry) {
         selectedPlace.value = place;
         emit('place-selected', place);
