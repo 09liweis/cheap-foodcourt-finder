@@ -40,6 +40,8 @@
             />
           </div>
           
+          <div v-if="errorMessage" class="mb-4 text-red-500">{{ errorMessage }}</div>
+          
           <button
             type="submit"
             :disabled="isLoading"
@@ -91,6 +93,7 @@ const isOpen = ref(false)
 const email = ref('')
 const password = ref('')
 const isLoading = ref(false)
+const errorMessage = ref('')
 const emit = defineEmits(['close', 'login'])
 
 const userStore = useUserStore()
@@ -99,6 +102,7 @@ const close = () => {
   isOpen.value = false
   email.value = ''
   password.value = ''
+  errorMessage.value = ''
   emit('close')
 }
 
@@ -106,17 +110,17 @@ const handleEmailLogin = async () => {
   if (isLoading.value) return
   
   isLoading.value = true
+  errorMessage.value = ''
+  
   try {
     emit('login', {
       email: email.value,
       password: password.value
     })
     await userStore.login(email.value, password.value)
-    // Clear form after successful login
-    email.value = ''
-    password.value = ''
     close()
   } catch (error) {
+    errorMessage.value = error.message || 'Login failed. Please try again.'
     console.error('Login error:', error)
   } finally {
     isLoading.value = false

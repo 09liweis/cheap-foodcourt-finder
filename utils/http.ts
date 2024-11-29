@@ -12,6 +12,7 @@ export async function sendRequest({url,method='GET',body={}}:any) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      'Auth-Token': localStorage.getItem('token')
     },
   };
   if (Object.keys(body).length) {
