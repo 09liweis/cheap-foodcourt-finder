@@ -4,7 +4,9 @@ import {sendRequest} from '../utils/http';
 export const useFoodCourtsStore = defineStore('foodCourts', {
   state: () => ({
     foodCourts: [],
-    curFoodCourt:{}
+    curFoodCourt: {},
+    isLoading: false,
+    error: null
   }),
   
   getters: {
@@ -15,18 +17,42 @@ export const useFoodCourtsStore = defineStore('foodCourts', {
   
   actions: {
     async fetchFoodCourts() {
-      const data = await sendRequest({url:'foodcourts'})
-      this.foodCourts = data.foodcourts;
+      this.isLoading = true;
+      this.error = null;
+      try {
+        const data = await sendRequest({url:'foodcourts'})
+        this.foodCourts = data.foodcourts;
+      } catch (err:any) {
+        this.error = err.toString();
+      } finally {
+        this.isLoading = false;
+      }
     },
 
     async fetchFoodCourtDetail(foodcourtUrl:string) {
-      const data = await sendRequest({url:`foodcourts/${foodcourtUrl}`});
-      this.curFoodCourt = data.foodcourt;
+      this.isLoading = true;
+      this.error = null;
+      try {
+        const data = await sendRequest({url:`foodcourts/${foodcourtUrl}`});
+        this.curFoodCourt = data.foodcourt;
+      } catch (err:any) {
+        this.error = err.toString();
+      } finally {
+        this.isLoading = false;
+      }
     },
 
     async addFoodCourt(placeId:string) {
-      const data = await sendRequest({url:'foodcourts',method:'POST',body:{place_id:placeId}})
-      this.fetchFoodCourts();
+      this.isLoading = true;
+      this.error = null;
+      try {
+        await sendRequest({url:'foodcourts',method:'POST',body:{place_id:placeId}})
+        await this.fetchFoodCourts();
+      } catch (err:any) {
+        this.error = err.toString();
+      } finally {
+        this.isLoading = false;
+      }
     },
     
     updateFoodCourt() {

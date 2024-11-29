@@ -41,11 +41,16 @@
         leave-to-class="opacity-0"
       >
         <div v-if="currentView === 'list'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <FoodCourtCard
-            v-for="foodCourt in foodCourts"
-            :key="foodCourt._id"
-            :food-court="foodCourt"
-          />
+          <template v-if="isLoading">
+            <FoodCourtSkeleton v-for="n in 6" :key="n" />
+          </template>
+          <template v-else>
+            <FoodCourtCard
+              v-for="foodCourt in foodCourts"
+              :key="foodCourt._id"
+              :food-court="foodCourt"
+            />
+          </template>
         </div>
       </Transition>
     </div>
@@ -60,17 +65,17 @@
         v-motion
         :initial="{ scale: 0.9, opacity: 0 }"
         :enter="{ scale: 1, opacity: 1 }"
-        class="bg-white rounded-lg p-8 max-w-md w-full mx-4"
+        class="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4"
         @click.stop
       >
         <div class="mb-6">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Add New Food Court</h2>
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Add New Food Court</h2>
           <AddressAutocomplete />
         </div>
         <div class="flex justify-end">
           <button
             @click="showAddFoodCourt = false"
-            class="text-sm text-gray-600 hover:text-gray-800"
+            class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
           >
             Cancel
           </button>
@@ -83,6 +88,7 @@
 <script setup>
 import ViewSwitcher from '../components/common/ViewSwitcher';
 import AddressAutocomplete from '../components/search/AddressAutocomplete.vue';
+import FoodCourtSkeleton from '../components/FoodCourtSkeleton.vue';
 import { useUserStore } from '../stores/user';
 import { computed, ref } from 'vue';
 
@@ -94,4 +100,5 @@ const userStore = useUserStore()
 foodCourtsStore.fetchFoodCourts();
 const foodCourts = computed(() => foodCourtsStore.foodCourts)
 const curUser = computed(() => userStore.curUser)
+const isLoading = computed(() => foodCourtsStore.isLoading)
 </script>
