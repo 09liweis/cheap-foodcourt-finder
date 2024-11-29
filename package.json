@@ -13,6 +13,7 @@
     "@googlemaps/js-api-loader": "^1.16.6",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@pinia/nuxt": "^0.7.0",
+    "@vercel/analytics": "^1.4.1",
     "@vueuse/motion": "^2.1.0",
     "nuxt": "^3.13.0",
     "pinia": "^2.2.7",
