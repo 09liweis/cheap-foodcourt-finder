@@ -11,24 +11,30 @@
       :zoom="12"
       class="w-full h-full"
     >
-      <Marker
+      <CustomMarker
         v-for="foodCourt in foodCourts"
         :key="foodCourt._id"
         :options="{
           position: foodCourt.loc,
-          title: foodCourt.name
+          anchorPoint: { x: 25, y: 25 }
         }"
         @click="handleMarkerClick(foodCourt)"
-      />
+      >
+        <FoodCourtMarker 
+          :name="foodCourt.name"
+          :photos="foodCourt.photos"
+        />
+      </CustomMarker>
     </GoogleMap>
   </div>
 </template>
 
 <script setup>
-import { GoogleMap, Marker } from 'vue3-google-map'
+import { GoogleMap, CustomMarker } from 'vue3-google-map'
 import { ref, onMounted } from 'vue'
 import { useLocation } from '~/composables/useLocation'
 import { useRouter } from 'vue-router'
+import FoodCourtMarker from './FoodCourtMarker.vue'
 
 const apiKey = 'AIzaSyA74jvNet0DufU8aoTe39dELLy2rVMeuos'
 
