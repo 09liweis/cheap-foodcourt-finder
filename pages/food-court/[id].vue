@@ -10,9 +10,22 @@
     >
       <img :src="foodCourt.photos[0]" :alt="foodCourt.name" class="w-full h-64 object-cover rounded-lg" />
       <div class="mt-4">
-        <h1 class="text-3xl font-bold text-gray-900">{{ foodCourt.name }}</h1>
-        <p class="text-gray-600 mt-2">{{ foodCourt.address }}</p>
-        <StarRating :rating="foodCourt.rating" class="mt-2" />
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ foodCourt.name }}</h1>
+        <div class="mt-2 space-y-2">
+          <p class="text-gray-600 dark:text-gray-400">{{ foodCourt.address }}</p>
+          <a 
+            :href="googleMapsUrl" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          >
+            <span>View on Google Maps</span>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+          <StarRating :rating="foodCourt.rating" class="mt-2" />
+        </div>
       </div>
     </div>
 
@@ -81,4 +94,11 @@ const userStore = useUserStore()
 foodCourtsStore.fetchFoodCourtDetail(foodCourtId)
 const foodCourt = computed(() => foodCourtsStore.curFoodCourt)
 const curUser = computed(() => userStore.curUser)
+
+const googleMapsUrl = computed(() => {
+  if (!foodCourt.value) return ''
+  const query = encodeURIComponent(foodCourt.value.address)
+  const coordinates = `${foodCourt.value.loc.lat},${foodCourt.value.loc.lng}`
+  return `https://www.google.com/maps/search/?api=1&query=${query}&query_place_id=${coordinates}`
+})
 </script>

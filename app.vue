@@ -10,7 +10,7 @@
           </div>
           <div class="flex items-center space-x-4">
             <ThemeSwitcher />
-            <UserMenu />
+            <!-- <UserMenu /> -->
           </div>
         </div>
       </div>
