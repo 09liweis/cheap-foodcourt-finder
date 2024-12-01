@@ -98,7 +98,7 @@ const curUser = computed(() => userStore.curUser)
 const googleMapsUrl = computed(() => {
   if (!foodCourt.value) return ''
   const query = encodeURIComponent(foodCourt.value.address)
-  const coordinates = `${foodCourt.value.loc.lat},${foodCourt.value.loc.lng}`
-  return `https://www.google.com/maps/search/?api=1&query=${query}&query_place_id=${coordinates}`
+  // const coordinates = `${foodCourt.value.loc.lat},${foodCourt.value.loc.lng}`
+  return `https://www.google.com/maps/search/?api=1&query=${query}`
 })
 </script>
