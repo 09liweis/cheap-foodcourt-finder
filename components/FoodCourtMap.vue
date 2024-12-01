@@ -26,6 +26,9 @@
 
 <script setup>
 import { GoogleMap, Marker } from 'vue3-google-map'
+import { ref, onMounted } from 'vue'
+import { useLocation } from '~/composables/useLocation'
+import { useRouter } from 'vue-router'
 
 const apiKey = 'AIzaSyA74jvNet0DufU8aoTe39dELLy2rVMeuos'
 
@@ -36,12 +39,47 @@ const props = defineProps({
   }
 })
 
-// Default center (can be calculated based on food courts)
 const mapCenter = ref({ lat: 43.7833328, lng: -79.4496867 })
-
 const router = useRouter()
+const { requestLocation } = useLocation()
 
 const handleMarkerClick = (foodCourt) => {
   router.push(`/food-court/${foodCourt.url}`)
 }
+
+const fitBoundsToFoodCourts = () => {
+  if (!props.foodCourts || props.foodCourts.length === 0) return
+
+  const bounds = props.foodCourts.reduce(
+    (acc, foodCourt) => {
+      acc.north = Math.max(acc.north, foodCourt.loc.lat)
+      acc.south = Math.min(acc.south, foodCourt.loc.lat)
+      acc.east = Math.max(acc.east, foodCourt.loc.lng)
+      acc.west = Math.min(acc.west, foodCourt.loc.lng)
+      return acc
+    },
+    {
+      north: -90,
+      south: 90,
+      east: -180,
+      west: 180
+    }
+  )
+
+  // Calculate center point
+  mapCenter.value = {
+    lat: (bounds.north + bounds.south) / 2,
+    lng: (bounds.east + bounds.west) / 2
+  }
+}
+
+onMounted(async () => {
+  // Request user location when component mounts
+  const location = await requestLocation()
+  if (location) {
+    mapCenter.value = location
+  } else {
+    fitBoundsToFoodCourts()
+  }
+})
 </script>
