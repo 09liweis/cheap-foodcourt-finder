@@ -1,7 +1,7 @@
 <template>
   <div v-if="foodCourt">
     <div class="mb-8">
-      <NuxtLink to="/" class="text-blue-600 hover:text-blue-800">← Back to Food Courts</NuxtLink>
+      <NuxtLink :to="backToFoodCourtsLink" class="text-blue-600 hover:text-blue-800">← Back to Food Courts</NuxtLink>
     </div>
     <div
       v-motion
@@ -101,4 +101,15 @@ const googleMapsUrl = computed(() => {
   // const coordinates = `${foodCourt.value.loc.lat},${foodCourt.value.loc.lng}`
   return `https://www.google.com/maps/search/?api=1&query=${query}`
 })
+
+const backToFoodCourtsLink = computed(() => {
+  let preferredView = 'list';
+  if (process.client) {
+    const savedView = localStorage.getItem('preferredView');
+    if (savedView === 'list' || savedView === 'map') {
+      preferredView = savedView;
+    }
+  }
+  return { path: '/', query: { view: preferredView } };
+});
 </script>
