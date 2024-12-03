@@ -22,7 +22,7 @@
       >
         <FoodCourtMarker 
           :name="foodCourt.name"
-          :photos="foodCourt.photos"
+          :cover="foodCourt.cover"
         />
       </CustomMarker>
     </GoogleMap>

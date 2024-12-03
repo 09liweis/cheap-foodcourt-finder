@@ -13,7 +13,7 @@
       class="grid grid-cols-1 lg:grid-cols-2 gap-8"
     >
       <div class="space-y-6">
-        <img :src="restaurant.photos[0]" :alt="restaurant.name" class="w-full h-96 object-cover rounded-lg shadow-md dark:shadow-gray-900" />
+        <img :src="restaurant.cover" :alt="restaurant.name" class="w-full h-96 object-cover rounded-lg shadow-md dark:shadow-gray-900" />
         <div class="grid grid-cols-3 gap-4">
           <img
             v-for="(photo, index) in restaurant.photos"

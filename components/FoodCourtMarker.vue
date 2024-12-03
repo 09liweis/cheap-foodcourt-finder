@@ -2,7 +2,7 @@
   <div class="custom-marker">
     <div class="marker-content">
       <img 
-        :src="photos[0]" 
+        :src="cover" 
         :alt="name"
         class="marker-image"
         @error="handleImageError"
@@ -20,8 +20,8 @@ const props = defineProps({
     type: String,
     required: true
   },
-  photos: {
-    type: Array,
+  cover: {
+    type: String,
     required: true
   }
 })

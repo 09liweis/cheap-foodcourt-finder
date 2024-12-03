@@ -8,7 +8,7 @@
       :initial="{ opacity: 0 }"
       :enter="{ opacity: 1 }"
     >
-      <img :src="foodCourt.photos[0]" :alt="foodCourt.name" class="w-full h-64 object-cover rounded-lg" />
+      <img :src="foodCourt.cover" :alt="foodCourt.name" class="w-full h-64 object-cover rounded-lg" />
       <div class="mt-4">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ foodCourt.name }}</h1>
         <div class="mt-2 space-y-2">
