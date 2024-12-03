@@ -90,15 +90,31 @@ import ViewSwitcher from '../components/common/ViewSwitcher';
 import AddressAutocomplete from '../components/search/AddressAutocomplete.vue';
 import FoodCourtSkeleton from '../components/FoodCourtSkeleton.vue';
 import { useUserStore } from '../stores/user';
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-const currentView = ref('list')
-const showAddFoodCourt = ref(false)
-const foodCourtsStore = useFoodCourtsStore()
-const userStore = useUserStore()
+const route = useRoute();
+const router = useRouter();
+const currentView = ref('list');
+const showAddFoodCourt = ref(false);
+const foodCourtsStore = useFoodCourtsStore();
+const userStore = useUserStore();
+
+// Initialize view from URL query string
+onMounted(() => {
+  const viewParam = route.query.view;
+  if (viewParam === 'list' || viewParam === 'map') {
+    currentView.value = viewParam;
+  }
+});
+
+// Update URL when view changes
+watch(currentView, (newView) => {
+  router.replace({ query: { ...route.query, view: newView } });
+});
 
 foodCourtsStore.fetchFoodCourts();
-const foodCourts = computed(() => foodCourtsStore.foodCourts)
-const curUser = computed(() => userStore.curUser)
-const isLoading = computed(() => foodCourtsStore.isLoading)
+const foodCourts = computed(() => foodCourtsStore.foodCourts);
+const curUser = computed(() => userStore.curUser);
+const isLoading = computed(() => foodCourtsStore.isLoading);
 </script>
