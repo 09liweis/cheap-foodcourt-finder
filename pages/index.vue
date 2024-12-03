@@ -100,17 +100,26 @@ const showAddFoodCourt = ref(false);
 const foodCourtsStore = useFoodCourtsStore();
 const userStore = useUserStore();
 
-// Initialize view from URL query string
+// Initialize view from URL query string or localStorage
 onMounted(() => {
   const viewParam = route.query.view;
   if (viewParam === 'list' || viewParam === 'map') {
     currentView.value = viewParam;
+  } else {
+    // If no URL parameter, try to get from localStorage
+    const savedView = localStorage.getItem('preferredView');
+    if (savedView === 'list' || savedView === 'map') {
+      currentView.value = savedView;
+      // Update URL to match localStorage preference
+      router.replace({ query: { ...route.query, view: savedView } });
+    }
   }
 });
 
-// Update URL when view changes
+// Update URL and localStorage when view changes
 watch(currentView, (newView) => {
   router.replace({ query: { ...route.query, view: newView } });
+  localStorage.setItem('preferredView', newView);
 });
 
 foodCourtsStore.fetchFoodCourts();
