@@ -10,7 +10,10 @@
       <div class="p-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ restaurant.name }}</h3>
         <p class="text-gray-600 dark:text-gray-400 mt-2">{{ restaurant.cuisine }}</p>
-        <Rating :rating="restaurant.rating" class="mt-4" />
+        <div class="mt-4 space-y-2">
+          <Rating :rating="restaurant.rating" />
+          <PriceLevel v-if="restaurant.price_level" :price-level="restaurant.price_level" />
+        </div>
       </div>
     </NuxtLink>
   </div>
@@ -18,6 +21,7 @@
 
 <script setup>
 import Rating from '~/components/common/Rating.vue'
+import PriceLevel from '~/components/common/PriceLevel.vue'
 
 defineProps({
   restaurant: {

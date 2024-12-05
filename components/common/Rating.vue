@@ -19,7 +19,7 @@
           </svg>
         </template>
       </div>
-      <span class="text-sm text-gray-600 dark:text-gray-400">{{ rating.toFixed(1) }}</span>
+      <span class="text-sm text-gray-600 dark:text-gray-400">{{ rating?.toFixed(1) }}</span>
     </div>
   </template>
   
