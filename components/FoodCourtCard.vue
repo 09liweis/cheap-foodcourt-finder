@@ -11,7 +11,7 @@
         <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ foodCourt.name }}</h2>
         <p class="text-gray-600 dark:text-gray-400 mt-2">{{ foodCourt.address }}</p>
         <div class="mt-4 flex items-center justify-between">
-          <StarRating :rating="foodCourt.rating" />
+          <Rating :rating="foodCourt.rating" />
           <div class="text-gray-600 dark:text-gray-400">
             {{ foodCourt.restaurantCount }} Restaurants
           </div>
@@ -22,6 +22,8 @@
 </template>
 
 <script setup>
+import Rating from '~/components/common/Rating.vue'
+
 defineProps({
   foodCourt: {
     type: Object,

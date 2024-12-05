@@ -21,7 +21,7 @@
         <div>
           <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ restaurant.name }}</h1>
           <p class="text-gray-600 dark:text-gray-400 mt-2">{{ restaurant.cuisine }}</p>
-          <StarRating :rating="restaurant.rating" class="mt-2" />
+          <Rating :rating="restaurant.rating" class="mt-2" />
         </div>
 
         <div>
@@ -60,7 +60,7 @@
             >
               <div class="flex items-center justify-between">
                 <span class="font-medium text-gray-900 dark:text-white">{{ review.author }}</span>
-                <StarRating :rating="review.rating" />
+                <Rating :rating="review.rating" />
               </div>
               <p class="mt-2 text-gray-700 dark:text-gray-300">{{ review.comment }}</p>
             </div>
@@ -73,6 +73,7 @@
 
 <script setup>
 import PhotoViewer from '~/components/PhotoViewer.vue'
+import Rating from '~/components/common/Rating.vue'
 
 const route = useRoute()
 const {foodcourtUrl, resUrl} = route.params

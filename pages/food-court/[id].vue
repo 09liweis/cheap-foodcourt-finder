@@ -24,7 +24,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
-          <StarRating :rating="foodCourt.rating" class="mt-2" />
+          <Rating :rating="foodCourt.rating" class="mt-2" />
         </div>
       </div>
     </div>
@@ -82,6 +82,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import AddressAutocomplete from '~/components/search/AddressAutocomplete.vue'
+import Rating from '~/components/common/Rating.vue'
 import { useUserStore } from '~/stores/user'
 
 const route = useRoute()
@@ -98,7 +99,6 @@ const curUser = computed(() => userStore.curUser)
 const googleMapsUrl = computed(() => {
   if (!foodCourt.value) return ''
   const query = encodeURIComponent(foodCourt.value.address)
-  // const coordinates = `${foodCourt.value.loc.lat},${foodCourt.value.loc.lng}`
   return `https://www.google.com/maps/search/?api=1&query=${query}`
 })
 
