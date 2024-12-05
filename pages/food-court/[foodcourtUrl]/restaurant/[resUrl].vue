@@ -14,15 +14,7 @@
     >
       <div class="space-y-6">
         <img :src="restaurant.cover" :alt="restaurant.name" class="w-full h-96 object-cover rounded-lg shadow-md dark:shadow-gray-900" />
-        <div class="grid grid-cols-3 gap-4">
-          <img
-            v-for="(photo, index) in restaurant.photos"
-            :key="index"
-            :src="photo"
-            :alt="`${restaurant.name} photo ${index + 1}`"
-            class="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-75 transition-opacity shadow-sm dark:shadow-gray-900"
-          />
-        </div>
+        <PhotoViewer :photos="allPhotos" />
       </div>
 
       <div class="space-y-6">
@@ -80,9 +72,16 @@
 </template>
 
 <script setup>
+import PhotoViewer from '~/components/PhotoViewer.vue'
+
 const route = useRoute()
 const {foodcourtUrl, resUrl} = route.params
 const restaurantsStore = useRestaurantsStore()
 restaurantsStore.fetchRestaurantDetail(resUrl, foodcourtUrl)
 const restaurant = computed(() => restaurantsStore.curRestaurant)
+
+const allPhotos = computed(() => {
+  if (!restaurant.value) return []
+  return [restaurant.value.cover, ...(restaurant.value.photos || [])]
+})
 </script>
