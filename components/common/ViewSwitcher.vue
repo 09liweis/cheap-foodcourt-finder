@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center mb-6 bg-gray-100 dark:bg-gray-700 rounded-lg p-1 w-fit">
+  <div class="flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1 w-fit">
     <button
       v-for="view in views"
       :key="view.id"

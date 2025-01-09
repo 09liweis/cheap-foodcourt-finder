@@ -3,16 +3,17 @@
     <div class="flex justify-between items-center mb-8">
       <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Popular Food Courts</h1>
       <div class="flex items-center gap-4">
-        <button
-          v-if="curUser?.isAdmin"
-          @click="showAddFoodCourt = true"
-          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-        >
-          Add New Food Court
-        </button>
         <ViewSwitcher v-model="currentView" />
       </div>
     </div>
+
+    <button
+      v-if="curUser?.isAdmin"
+      @click="showAddFoodCourt = true"
+      class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+    >
+      Add New Food Court
+    </button>
 
     <div
       v-motion
