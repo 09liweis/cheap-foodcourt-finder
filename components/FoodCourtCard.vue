@@ -10,11 +10,9 @@
       <div class="p-4">
         <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ foodCourt.name }}</h2>
         <p class="text-gray-600 dark:text-gray-400 mt-2">{{ foodCourt.address }}</p>
-        <div class="mt-4 flex items-center justify-between">
-          <div class="space-y-2">
-            <Rating :rating="foodCourt.rating" />
-            <PriceLevel v-if="foodCourt.price_level" :price-level="foodCourt.price_level" />
-          </div>
+        <div class="space-y-2">
+          <Rating :rating="foodCourt.rating" />
+          <PriceLevel v-if="foodCourt.price_level" :price-level="foodCourt.price_level" />
         </div>
       </div>
     </NuxtLink>

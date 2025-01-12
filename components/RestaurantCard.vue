@@ -9,7 +9,7 @@
       <img :src="restaurant.cover" :alt="restaurant.name" class="w-full h-48 object-cover" />
       <div class="p-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ restaurant.name }}</h3>
-        <p class="text-gray-600 dark:text-gray-400 mt-2">{{ restaurant.cuisine }}</p>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">{{ restaurant.address }}</p>
         <div class="mt-4 space-y-2">
           <Rating :rating="restaurant.rating" />
           <PriceLevel v-if="restaurant.price_level" :price-level="restaurant.price_level" />
